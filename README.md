@@ -8,5 +8,5 @@ writeToCSV ( 'filename', 'sheet name' )
 
 ## readFromCSV
 ```javascript
-
+readFromCSV ( 'filename' )
 ```
