@@ -35,7 +35,21 @@ const createAndFillWorkbook = (sheetName) => {
   return workbook
 }
 
-writeToCsv('test.csv', 'My Sheet')
-
 
 // Read CSV Files
+const readFromCSV = (filename) => {
+  const workbook = new Excel.Workbook()
+  workbook.csv.readFile(filename)
+    .then(worksheet => {
+      
+      // Iterate over each row
+      worksheet.eachRow( (row, rowNumber) => {
+        console.log('Row ' + rowNumber + ' = ' + JSON.stringify(row.values));
+      })
+    })
+}
+
+
+writeToCsv('test.csv', 'My Sheet')
+
+readFromCSV('test.csv')
