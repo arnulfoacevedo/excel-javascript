@@ -1,4 +1,4 @@
-const { writeToCsv, readFromCsv } = require('./exceljs')
+const { writeToCsv, readFromCsv } = require('./exceljs/exceljs')
 
 // Array of column names
 columns = [
