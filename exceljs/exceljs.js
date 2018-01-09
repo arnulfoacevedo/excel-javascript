@@ -28,38 +28,36 @@ const readFromCsv = filename => {
   return new Promise((success, fail) => {
     const workbook = new Excel.Workbook()
     const records = []
-    let label1 = ''
-    let label2 = ''
-    let label3 = ''
-    let label4 = ''
-    let label5 = ''
 
-    workbook.csv.readFile(filename).then(worksheet => {
-      // Iterate over each row
-      worksheet.eachRow((row, rowNumber) => {
-        // console.log('Row ' + rowNumber + ' = ' + JSON.stringify(row.values))
-
+    try {
+      workbook.csv.readFile(filename).then(worksheet => {
         // Get the column names
-        if (rowNumber === 1) {
-          label1 = row.values[1]
-          label2 = row.values[2]
-          label3 = row.values[3]
-          label4 = row.values[4]
-          label5 = row.values[5]
-        } else if (rowNumber > 1) {
-          // Read column values
-          records.push({
-            [label1]: row.values[1], // Student ID
-            [label2]: row.values[2], // First Name
-            [label3]: row.values[3], // Last Name
-            [label4]: row.values[4], // Mobile
-            [label5]: row.values[5] // Email
-          })
-        }
+        const label1 = worksheet.getRow(1).values[1] // Student ID
+        const label2 = worksheet.getRow(1).values[2] // First Name
+        const label3 = worksheet.getRow(1).values[3] // Last Name
+        const label4 = worksheet.getRow(1).values[4] // Mobile
+        const label5 = worksheet.getRow(1).values[5] // Email
+        
+        // Iterate over each row
+        worksheet.eachRow((row, rowNumber) => {
+          // console.log('Row ' + rowNumber + ' = ' + JSON.stringify(row.values))
+          if (rowNumber > 1) {
+            // Read column values
+            records.push({
+              [label1]: row.values[1], // Student ID
+              [label2]: row.values[2], // First Name
+              [label3]: row.values[3], // Last Name
+              [label4]: row.values[4], // Mobile
+              [label5]: row.values[5] // Email
+            })
+          }
+        })
+        success(records)
       })
-
-      success(records)
-    })
+    }
+    catch(error) {
+      fail(error)
+    }
   })
 }
 
