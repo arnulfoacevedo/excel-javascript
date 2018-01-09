@@ -1,7 +1,27 @@
 # Node Exceljs
 This is an app that uses the `exceljs` package to create or read CSV files
 
-## writeToCSV
+## Routes
+### POST /upload
+- Handles file upload of CSV Files
+- Example html:
+```html
+<html>
+  <body>
+    <form ref='uploadForm' 
+      id='uploadForm' 
+      action='http://localhost:7000/upload' 
+      method='post' 
+      encType="multipart/form-data">
+        <input type="file" name="csvFile" />
+        <input type='submit' value='Upload!' />
+    </form>     
+  </body>
+</html>
+```
+
+## Excel JS Functions
+### writeToCSV
 ```javascript
 // Array of column names
 columns = [
@@ -23,7 +43,7 @@ data = [
 writeToCsv ( 'filename.csv', 'sheet name', columns, data )
 ```
 
-## readFromCSV
+### readFromCSV
 ```javascript
 readFromCsv ( 'filename.csv' )
 ```
